@@ -28,7 +28,7 @@ friday_scan_list = getChartinkSymbols(condition_friday)
 
 friday_stock_nse_codes = friday_scan_list['nsecode'].to_list()
 stocks_nse_symbol = [symbol+'.NS' for symbol in friday_stock_nse_codes]
-st.write('Chartink Stocks Weekly Scan on Friday')
+st.write(f'Chartink Stocks Weekly Scan on Friday {len(friday_stock_nse_codes)}')
 st.write(friday_scan_list)
 
 
@@ -36,7 +36,7 @@ st.write(friday_scan_list)
 friday_scan_list_2pct = getChartinkSymbols(condition_consolidating)
 friday_stock_nse_codes_2pct = friday_scan_list['nsecode'].to_list()
 stocks_nse_symbol_2pct = [symbol+'.NS' for symbol in friday_stock_nse_codes]
-st.write('Chartink Stocks Weekly Scan on Friday')
+st.write(f'Chartink Stocks Weekly Scan on Friday {len(friday_scan_list_2pct)}')
 st.write(friday_scan_list_2pct)
 
 
