@@ -19,7 +19,7 @@ with requests.session() as s:
     header = {"x-csrf-token" : meta}
     data = s.post(url, headers=header, data=condition).json()
 
-    query_stock_list = pd.DataFrame(data["data"]
+    query_stock_list = pd.DataFrame(data["data"])
                                     
                                     
                                     
