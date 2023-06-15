@@ -23,41 +23,53 @@ def getChartinkSymbols(condition):
 
         query_stock_list = pd.DataFrame(data["data"])
         return query_stock_list
-                                    
-friday_scan_list = getChartinkSymbols(condition_friday)
-friday_stock_nse_codes = friday_scan_list['nsecode'].to_list()
-stocks_nse_symbol = [symbol+'.NS' for symbol in friday_stock_nse_codes]
-st.write(f'Chartink Stocks Weekly Scan on Friday {len(friday_stock_nse_codes)}')
-st.dataframe(friday_scan_list)
+
+
+col1, col2 = st.columns(2)
+
+with col1:
+    st.header("Filtered List")
+    st.write("This is the content of column 1.")
+    friday_scan_list = getChartinkSymbols(condition_friday)
+    friday_stock_nse_codes = friday_scan_list['nsecode'].to_list()
+    stocks_nse_symbol = [symbol+'.NS' for symbol in friday_stock_nse_codes]
+    st.write(f'Chartink Stocks Weekly Scan on Friday {len(friday_stock_nse_codes)}')
+    st.dataframe(friday_scan_list)
 
 
 
-friday_scan_list_2pct = getChartinkSymbols(condition_consolidating)
-friday_scan_list_2pct["nsecode"] = friday_scan_list_2pct["nsecode"]+'.NS'
-friday_stock_nse_codes_2pct = friday_scan_list['nsecode'].to_list()
-stocks_nse_symbol_2pct = [symbol+'.NS' for symbol in friday_stock_nse_codes]
-st.write(f'Chartink Stocks Weekly Scan on Friday {len(friday_scan_list_2pct)}')
-st.dataframe(friday_scan_list_2pct)
+    friday_scan_list_2pct = getChartinkSymbols(condition_consolidating)
+    friday_scan_list_2pct["nsecode"] = friday_scan_list_2pct["nsecode"]+'.NS'
+    friday_stock_nse_codes_2pct = friday_scan_list['nsecode'].to_list()
+    stocks_nse_symbol_2pct = [symbol+'.NS' for symbol in friday_stock_nse_codes]
+    st.write(f'Chartink Stocks Weekly Scan on Friday {len(friday_scan_list_2pct)}')
+    st.dataframe(friday_scan_list_2pct)
 
 
-# Get Clicked Item 
-# Get the clicked element
-# Create a function to load data from Yahoo Finance
-def load_data(symbol):
-    data = yf.Ticker(symbol).history(period="180d")
-    return data
+with col2:
+    st.header("Column 2")
+    st.write("This is the content of column 2.")
 
-# Create a button to load data from Yahoo Finance
-load_data_button = st.button("Load Data")
 
-# If the button is clicked
-if load_data_button:
-    # Get the symbol from the user
-    symbol = st.selectbox("Select a symbol:", friday_scan_list_2pct["nsecode"])
-    # Load the data from Yahoo Finance
-    data = load_data(symbol)
-    # Display the data
-    st.dataframe(data)
+
+    # Get Clicked Item 
+    # Get the clicked element
+    # Create a function to load data from Yahoo Finance
+    def load_data(symbol):
+        data = yf.Ticker(symbol).history(period="180d")
+        return data
+
+    # Create a button to load data from Yahoo Finance
+    load_data_button = st.button("Load Data")
+
+    # If the button is clicked
+    if load_data_button:
+        # Get the symbol from the user
+        symbol = st.selectbox("Select a symbol:", friday_scan_list_2pct["nsecode"])
+        # Load the data from Yahoo Finance
+        data = load_data(symbol)
+        # Display the data
+        st.dataframe(data)
 
 # from datetime import date ,timedelta
 # today = date.today()+timedelta(days=1)
