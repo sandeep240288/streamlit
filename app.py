@@ -26,7 +26,9 @@ with requests.session() as s:
                                     
 stock_nse_codes = query_stock_list['nsecode'].to_list()
 stocks_nse_symbol = [symbol+'.NS' for symbol in stock_nse_codes]
-st.write(stocks_nse_symbol)
+st.write('Hello Word')
+
+st.write(query_stock_list)
                                     
 from datetime import date ,timedelta
 today = date.today()+timedelta(days=1)
