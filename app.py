@@ -3,7 +3,7 @@ import numpy as np
 import requests
 from bs4 import BeautifulSoup as bs
 import yfinance as yf
-
+import streamlit as st
 url = "https://chartink.com/screener/process"
 
 condition_friday = {"scan_clause": "( {cash} ( weekly close >= 30 and latest sma( latest close , 10 ) >= latest sma( latest close , 30 ) and latest sma( latest volume , 5 ) >= 10000 and market cap > 0 and weekly sma( weekly close , 40 ) <= latest close and latest \"\close - 1 candle ago close / 1 candle ago close * 100\"\ >= -4 ) )"}
