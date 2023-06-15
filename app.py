@@ -40,6 +40,23 @@ st.write(f'Chartink Stocks Weekly Scan on Friday {len(friday_scan_list_2pct)}')
 st.write(friday_scan_list_2pct)
 
 
+# Get Clicked Item 
+# Get the clicked element
+clicked_element = st.session_state.clicked_element
+
+# If an element was clicked
+if clicked_element is not None:
+
+    # Get the row and column of the clicked element
+    row, column = clicked_element
+
+    # Get the value of the cell at the clicked row and column
+    value = friday_scan_list_2pct.iloc[row, column]
+
+    # Display the value
+    st.write("The value of the cell at row {} and column {} is {}".format(row, column, value))
+
+
 
 from datetime import date ,timedelta
 today = date.today()+timedelta(days=1)
