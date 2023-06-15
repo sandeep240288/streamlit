@@ -25,45 +25,46 @@ def getChartinkSymbols(condition):
         return query_stock_list
                                     
 friday_scan_list = getChartinkSymbols(condition_friday)
-
 friday_stock_nse_codes = friday_scan_list['nsecode'].to_list()
 stocks_nse_symbol = [symbol+'.NS' for symbol in friday_stock_nse_codes]
 st.write(f'Chartink Stocks Weekly Scan on Friday {len(friday_stock_nse_codes)}')
-st.write(friday_scan_list)
+st.dataframe(friday_scan_list)
 
 
 
 friday_scan_list_2pct = getChartinkSymbols(condition_consolidating)
+friday_scan_list_2pct["nsecode"] = friday_scan_list_2pct["nsecode"]+'.NS'
 friday_stock_nse_codes_2pct = friday_scan_list['nsecode'].to_list()
 stocks_nse_symbol_2pct = [symbol+'.NS' for symbol in friday_stock_nse_codes]
 st.write(f'Chartink Stocks Weekly Scan on Friday {len(friday_scan_list_2pct)}')
-st.write(friday_scan_list_2pct)
+st.dataframe(friday_scan_list_2pct)
 
 
 # Get Clicked Item 
 # Get the clicked element
-clicked_element = st.session_state.clicked_element
+# Create a function to load data from Yahoo Finance
+def load_data(symbol):
+    data = yf.Ticker(symbol).history(period="180d")
+    return data
 
-# If an element was clicked
-if clicked_element is not None:
+# Create a button to load data from Yahoo Finance
+load_data_button = st.button("Load Data")
 
-    # Get the row and column of the clicked element
-    row, column = clicked_element
+# If the button is clicked
+if load_data_button:
+    # Get the symbol from the user
+    symbol = st.selectbox("Select a symbol:", friday_scan_list_2pct["nsecode"])
+    # Load the data from Yahoo Finance
+    data = load_data(symbol)
+    # Display the data
+    st.dataframe(data)
 
-    # Get the value of the cell at the clicked row and column
-    value = friday_scan_list_2pct.iloc[row, column]
-
-    # Display the value
-    st.write("The value of the cell at row {} and column {} is {}".format(row, column, value))
-
-
-
-from datetime import date ,timedelta
-today = date.today()+timedelta(days=1)
-start_date = today-timedelta(days=180)
+# from datetime import date ,timedelta
+# today = date.today()+timedelta(days=1)
+# start_date = today-timedelta(days=180)
                                     
-stock_list = stocks_nse_symbol
-filtered_stocks_purple_dots =[]
-filtered_darvax =[]
+# stock_list = stocks_nse_symbol
+# filtered_stocks_purple_dots =[]
+# filtered_darvax =[]
                                     
                                     
