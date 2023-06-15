@@ -11,25 +11,36 @@ condition_consolidating = {"scan_clause": "( {cash} ( weekly close >= 30 and lat
 
 condition = condition_friday
 
-with requests.session() as s:
-    r_data = s.get(url)
-    soup = bs(r_data.content, "lxml")
-    meta = soup.find("meta", {"name" : "csrf-token"})["content"]
+                              
+def getChartinkSymbols(condition):
+    with requests.session() as s:
+        r_data = s.get(url)
+        soup = bs(r_data.content, "lxml")
+        meta = soup.find("meta", {"name" : "csrf-token"})["content"]
 
-    header = {"x-csrf-token" : meta}
-    data = s.post(url, headers=header, data=condition).json()
+        header = {"x-csrf-token" : meta}
+        data = s.post(url, headers=header, data=condition).json()
 
-    query_stock_list = pd.DataFrame(data["data"])
+        query_stock_list = pd.DataFrame(data["data"])
+        return query_stock_list
                                     
-                                    
-                                    
-                                    
-stock_nse_codes = query_stock_list['nsecode'].to_list()
-stocks_nse_symbol = [symbol+'.NS' for symbol in stock_nse_codes]
-st.write('Hello Word')
+friday_scan_list = getChartinkSymbols(condition_friday)
 
-st.write(query_stock_list)
-                                    
+friday_stock_nse_codes = friday_scan_list['nsecode'].to_list()
+stocks_nse_symbol = [symbol+'.NS' for symbol in friday_stock_nse_codes]
+st.write('Chartink Stocks Weekly Scan on Friday')
+st.write(friday_scan_list)
+
+
+
+friday_scan_list_2pct = getChartinkSymbols(condition_consolidating)
+friday_stock_nse_codes_2pct = friday_scan_list['nsecode'].to_list()
+stocks_nse_symbol_2pct = [symbol+'.NS' for symbol in friday_stock_nse_codes]
+st.write('Chartink Stocks Weekly Scan on Friday')
+st.write(friday_scan_list_2pct)
+
+
+
 from datetime import date ,timedelta
 today = date.today()+timedelta(days=1)
 start_date = today-timedelta(days=180)
