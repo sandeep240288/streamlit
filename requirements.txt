@@ -1,3 +1,7 @@
 altair 
 pandas 
 streamlit
+yfinance
+pandas_ta
+bs4
+tabulate
