@@ -7,7 +7,7 @@ connection = sqlite3.connect('my_database.db')
 cursor = connection.cursor()
 
 # Create a table
-cursor.execute('CREATE TABLE users (name TEXT, email TEXT)')
+cursor.execute('CREATE FRIDAY_SCANS users (name TEXT, email TEXT)')
 
 # Insert some data
 cursor.execute('INSERT INTO users (name, email) VALUES ("John Doe", "johndoe@example.com")')
